@@ -4,6 +4,8 @@ figma.showUI(__html__);
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
 
+
+
 figma.ui.onmessage = msg => {
   
   if (msg.type === 'page-numbers') {
@@ -18,11 +20,11 @@ async function pageNums(msg) {
 
   var frameIndex = 1;
 
-  for (const child of figma.currentPage.selection) {
+  for (const selection of figma.currentPage.selection) {
 
-    if (child.type == 'FRAME') {
+    if (selection.type == 'FRAME') {
 
-      var textObjects = child.findAll(node => node.type === "TEXT").filter(node => node.characters === msg.identifier)
+      var textObjects = selection.findAll(selection => selection.type === "TEXT").filter(selection => selection.characters === msg.identifier)
 
       textObjects.forEach(function (text) {
 
@@ -34,8 +36,10 @@ async function pageNums(msg) {
 
       frameIndex++
 
+      
+
   }}
 
-    
+  msg.postMessage('hello')
 
 }
