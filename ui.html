@@ -1,17 +1,163 @@
-<h2>Paginate</h2>
-<input type="text" id="identifier">
-<button id="create">Create</button>
-<button id="cancel">Cancel</button>
 
-<script>
+<body>
+  <ul class="steps">
+    <li>Insert the pattern into the frame(s)</li>
+    <li>Select all those frames</li>
+    <li>Click 'Numerate' button</li>
+  </ul>
+  <div class="input-wrapper">
+    <div class="field-name">Pattern</div>
+    <input type="text" id="identifier" value="$p">
+    <div class="description">Insert this into the frames or type your own.</div>
+  </div>
+  <div class="input-wrapper">
+    <div class="field-name">Start number</div>
+    <input type="number" id="start" value="1" min="1">
+  </div>
 
-document.getElementById('create').onclick = () => {
-  const identifier = document.getElementById('identifier').value;
-  parent.postMessage({ pluginMessage: { type: 'page-numbers', identifier } }, '*')
-}
+  <div class="callbacks">
+    <div class="nothing">No frame(s) selected</div>
+  </div>
 
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
+  <div class="button-wrapper">
+    <button id="create">Numerate</button>
+  </div>
+  <script>
 
-</script>
+  window.onmessage = (e) => {
+
+    document.querySelector(".callbacks").innerHTML = e.data.pluginMessage
+
+  } 
+
+  document.getElementById('create').onclick = () => {
+    const identifier = document.getElementById('identifier').value;
+    const startNumber = document.getElementById('start').value;
+    parent.postMessage({ pluginMessage: { type: 'page-numbers', identifier, startNumber } }, '*')
+  }
+
+  document.getElementById('cancel').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+  }
+
+  </script>
+  <style>
+    body {
+
+      padding: 10px;
+      font-family: 'Poppins', sans-serif;
+      background-color: #00F0FF;
+
+    }
+
+    .steps {
+
+      list-style-type: decimal;
+      margin:  0 0 25px 0;
+      padding: 10px 10px 10px 25px;
+      border: 2px solid black;
+      border-radius: 10px;
+      box-sizing: border-box;
+      box-shadow: 0px 4px 0px #000000;
+
+    }
+
+    .steps li {
+
+      margin: 0;
+      padding: 0;
+
+    }
+
+    .callbacks {
+
+      font-size: 14px;
+
+    }
+
+    .nothing {
+
+      color:rgba(0, 0, 0, 0.288);
+      font-size: inherit;
+
+    }
+
+    .button-wrapper {
+
+      width: 100%;
+      position: relative;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 15px;
+      position: fixed;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: flex-end;
+      align-content: center;
+
+    }
+
+    .field-name, input[type=text], input[type=number] {
+
+      font-size: 40px;
+
+    }
+
+    .input-wrapper {
+
+      margin-bottom: 15px;
+
+    }
+
+    .field-name {
+
+      font-weight: bold;
+      letter-spacing: -1px;
+
+    }
+
+    input[type=text], input[type=number] {
+
+      width: 100%;
+      height: auto;
+      background-color: transparent;
+      padding: 0 0 5px 0;
+      outline: none;
+      border-top: none;
+      border-right: none;
+      border-bottom: 2px solid black;
+      border-left: none;
+      font-style: italic;
+
+    }
+
+    .description {
+
+      font-size: 14px;
+      margin-top: 5px;
+
+    }
+
+    button {
+
+      padding: 5px 15px;
+      background-color: transparent;
+      border: 2px solid black;
+      border-radius: 5px;
+      outline: none;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0px 3px 0px #000000;
+
+    }
+
+    button:hover {
+
+      box-shadow: 0px 1px 0px #000000;
+      cursor: pointer;
+      margin-bottom: -2px;
+
+    }
+  </style>
+</body>
