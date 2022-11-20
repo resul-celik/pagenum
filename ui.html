@@ -7,46 +7,71 @@
   </ul>
   <div class="input-wrapper">
     <div class="field-name">Pattern</div>
-    <input type="text" id="identifier" value="$p">
+    <input type="text" id="pattern" value="$p">
     <div class="description">Insert this into the frames or type your own.</div>
   </div>
   <div class="input-wrapper">
     <div class="field-name">Start number</div>
     <input type="number" id="start" value="1" min="1">
   </div>
-
   <div class="callbacks">
     <div class="nothing">No frame(s) selected</div>
   </div>
-
-  <div class="button-wrapper">
-    <button id="create">Numerate</button>
+  <div class="footer">
+    <div>
+      <small>Feedback:</small>
+      <a href="https://github.com/resul-celik/pagenum" target="_blank">Github</a>
+    </div>
+    <button id="numerate">Numerate</button>
   </div>
   <script>
 
-  window.onmessage = (e) => {
+    window.onmessage = (e) => {
 
-    document.querySelector(".callbacks").innerHTML = e.data.pluginMessage
+      document.querySelector(".callbacks").innerHTML = e.data.pluginMessage
 
-  } 
+    } 
 
-  document.getElementById('create').onclick = () => {
-    const identifier = document.getElementById('identifier').value;
-    const startNumber = document.getElementById('start').value;
-    parent.postMessage({ pluginMessage: { type: 'page-numbers', identifier, startNumber } }, '*')
-  }
+    document.getElementById('numerate').onclick = () => {
 
-  document.getElementById('cancel').onclick = () => {
-    parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-  }
+      const pattern = document.getElementById('pattern').value;
+      const startNumber = document.getElementById('start').value;
+      parent.postMessage({ pluginMessage: { type: 'page-numbers', pattern, startNumber } }, '*')
+
+    }
+
+    document.getElementById('cancel').onclick = () => {
+
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+
+    }
 
   </script>
   <style>
+
     body {
 
       padding: 10px;
       font-family: 'Poppins', sans-serif;
       background-color: #00F0FF;
+
+    }
+    
+    a, a:hover {
+
+      color: black;
+      margin: 0;
+      padding: 0;
+      text-decoration: underline;
+      padding: 0;
+      font-size: 14px;
+
+    }
+
+    small {
+
+      margin: 0;
+      padding: 0;
 
     }
 
@@ -82,7 +107,7 @@
 
     }
 
-    .button-wrapper {
+    .footer {
 
       width: 100%;
       position: relative;
@@ -93,7 +118,7 @@
       position: fixed;
       box-sizing: border-box;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-content: center;
 
     }
@@ -157,6 +182,7 @@
       box-shadow: 0px 1px 0px #000000;
       cursor: pointer;
       margin-bottom: -2px;
+      margin-top: 2px;
 
     }
   </style>

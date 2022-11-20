@@ -1,15 +1,8 @@
 figma.showUI(__html__, { visible: true, width: 370, height: 560 });
 
-// Calls to "parent.postMessage" from within the HTML page will trigger this
-// callback. The callback will be passed the "pluginMessage" property of the
-// posted message.
-
-
-var errors = ''
-
 figma.on("selectionchange", (event) => {
 
-  var selectedFrames = '<div class="nothing">No frame(s) selected. </div>'
+  var selectedFrames = '<div class="nothing">No frame(s) selected.</div>'
   
   for (const selections of figma.currentPage.selection) {
 
@@ -20,7 +13,6 @@ figma.on("selectionchange", (event) => {
     } 
 
   }
-
   
   figma.ui.postMessage(selectedFrames, { origin: "*" });
 
@@ -39,6 +31,7 @@ figma.ui.onmessage = msg => {
 async function pageNums(msg) {
 
   var startNumber = 1;
+  var pattern = '$p';
 
   if (msg.startNumber) {
 
@@ -46,31 +39,35 @@ async function pageNums(msg) {
 
   }
 
+  if (msg.pattern) {
+
+    pattern = msg.pattern
+
+  }
+
   for (const selection of figma.currentPage.selection) {
 
     if (selection.type == 'FRAME') {
 
-      var textObjects = selection.findAll(selection => selection.type === "TEXT").filter(selection => selection.characters === msg.identifier)
-
-      var istx
+      var textObjects = selection.findAll(selection => selection.type === "TEXT").filter(selection => selection.characters === pattern)
+      var checkNewText
 
       textObjects.forEach(function (text) {
 
-        var newText = ''+startNumber+''
-
-        istx = true
-        
+        var newText = startNumber.toString() 
+        checkNewText = true
         figma.loadFontAsync(text.fontName).catch((err) => { if (err) {alert(err)} }).then(function () { text.characters = newText},function () {})
+        
 
       })
 
-      if (istx !== true) {
+      if (checkNewText !== true) {
 
-        figma.ui.postMessage('No pattern detected', { origin: "*" });
+        figma.ui.postMessage('There was no pattern detected.', { origin: "*" });
 
       } else {
 
-        figma.ui.postMessage('Numarated', { origin: "*" });
+        figma.ui.postMessage('Pages have been numbered.', { origin: "*" });
 
       }
 
@@ -82,8 +79,6 @@ async function pageNums(msg) {
 
     }
 
-  } 
-
-  
+  }
 
 }
