@@ -22,10 +22,10 @@ figma.ui.onmessage = msg => {
   
   if (msg.type === 'page-numbers') {
 
-      pageNums(msg)
+    pageNums(msg)
 
   }
-  
+
 };
 
 async function pageNums(msg) {
@@ -54,20 +54,20 @@ async function pageNums(msg) {
 
       textObjects.forEach(function (text) {
 
-        var newText = startNumber.toString() 
+        var newText = startNumber.toString()
         checkNewText = true
-        figma.loadFontAsync(text.fontName).catch((err) => { if (err) {alert(err)} }).then(function () { text.characters = newText},function () {})
-        
+
+        figma.loadFontAsync(text.fontName).then(() => { text.characters = newText })
 
       })
 
       if (checkNewText !== true) {
 
-        figma.ui.postMessage('There was no pattern detected.', { origin: "*" });
+        figma.notify(`No pattern detected.`);
 
       } else {
 
-        figma.ui.postMessage('Pages have been numbered.', { origin: "*" });
+        figma.notify(`Pages successfully numbered.`);
 
       }
 
@@ -75,7 +75,7 @@ async function pageNums(msg) {
 
     } else {
 
-      figma.ui.postMessage('No frame(s) selected', { origin: "*" });
+      figma.notify(`No frame(s) selected.`);
 
     }
 
