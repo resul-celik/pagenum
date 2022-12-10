@@ -1,14 +1,14 @@
-figma.showUI(__html__, { visible: true, width: 370, height: 560 });
+figma.showUI(__html__, { visible: true, width: 370, height: 650 });
 
 figma.on("selectionchange", (event) => {
 
-  var selectedFrames = '<div class="nothing">No frame(s) selected.</div>'
+  var selectedFrames = '<div class="nothing">There are no frames selected.</div>'
   
   for (const selections of figma.currentPage.selection) {
 
     if (selections.type == 'FRAME') {
 
-      selectedFrames = 'Frame(s) selected';
+      selectedFrames = 'Frames are selected.';
 
     } 
 
@@ -31,7 +31,9 @@ figma.ui.onmessage = msg => {
 async function pageNums(msg) {
 
   var startNumber = 1;
+  var detectedPatterns = 0;
   var pattern = '$p';
+  var frames = false;
 
   if (msg.startNumber) {
 
@@ -50,34 +52,54 @@ async function pageNums(msg) {
     if (selection.type == 'FRAME') {
 
       var textObjects = selection.findAll(selection => selection.type === "TEXT").filter(selection => selection.characters === pattern)
-      var checkNewText
 
       textObjects.forEach(function (text) {
 
         var newText = startNumber.toString()
-        checkNewText = true
+        
+        detectedPatterns++
 
         figma.loadFontAsync(text.fontName).then(() => { text.characters = newText })
 
       })
 
-      if (checkNewText !== true) {
+      if (textObjects.length != 0) {
 
-        figma.notify(`No pattern detected.`);
+        if (msg.direction) {
 
-      } else {
+          startNumber++
 
-        figma.notify(`Pages successfully numbered.`);
+        } else {
+
+          startNumber--
+
+        }
 
       }
 
-      startNumber++
+      frames = true
+
+    }
+
+  }
+
+  // Feedbacks
+
+  if (frames) {
+
+    if (detectedPatterns == 0) {
+
+      figma.notify(`There are no pattern detected.`);
 
     } else {
 
-      figma.notify(`No frame(s) selected.`);
+      figma.notify(`Pages successfully numbered.`);
 
     }
+
+  } else {
+
+    figma.notify(`There are no frames selected. `);
 
   }
 

@@ -12,17 +12,37 @@
   </div>
   <div class="input-wrapper">
     <div class="field-name">Start number</div>
-    <input type="number" id="start" value="1" min="1">
+    <input type="number" id="start" value="1" min="0">
+  </div>
+  <div class="input-wrapper">
+    <div class="field-name">Direction</div>
+    <div class="radio-button-wrapper">
+      <div class="radio-button">
+        <input type="radio" name="direction" id="direction" checked>
+        <div class="button arrow">
+          <svg viewBox="0 0 12 18" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6.54368 0.233378C6.24341 -0.0668877 5.75659 -0.0668877 5.45632 0.233378L0.283854 5.40584C-0.0164115 5.70611 -0.0164117 6.19294 0.283854 6.4932L0.633771 6.84312C0.934036 7.14339 1.42086 7.14339 1.72113 6.84312L4.98369 3.58056L4.98369 17.2229C4.98369 17.6475 5.32793 17.9918 5.75257 17.9918H6.24743C6.67207 17.9918 7.01631 17.6475 7.01631 17.2229L7.01631 3.58056L10.2789 6.84312C10.5791 7.14339 11.066 7.14339 11.3662 6.84312L11.7161 6.4932C12.0164 6.19294 12.0164 5.70611 11.7161 5.40585L6.54368 0.233378Z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="radio-button">
+        <input type="radio" name="direction">
+        <div class="button arrow">
+          <svg viewBox="0 0 12 18" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.45632 17.7666C5.75659 18.0669 6.24341 18.0669 6.54368 17.7666L11.7161 12.5942C12.0164 12.2939 12.0164 11.8071 11.7161 11.5068L11.3662 11.1569C11.066 10.8566 10.5791 10.8566 10.2789 11.1569L7.01631 14.4194L7.01631 0.77711C7.01631 0.352471 6.67207 0.00823199 6.24743 0.00823195L5.75257 0.00823191C5.32793 0.00823187 4.9837 0.352471 4.9837 0.77711L4.98369 14.4194L1.72113 11.1569C1.42086 10.8566 0.934037 10.8566 0.633771 11.1569L0.283855 11.5068C-0.0164114 11.8071 -0.0164114 12.2939 0.283855 12.5942L5.45632 17.7666Z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="callbacks">
-    <div class="nothing">No frame(s) selected</div>
+    <div class="nothing">There are no frames selected.</div>
   </div>
   <div class="footer">
     <div>
-      <small>Feedback:</small>
       <a href="https://github.com/resul-celik/pagenum" target="_blank">Github</a>
     </div>
-    <button id="numerate">Numerate</button>
+    <button class="button" id="numerate">Numerate</button>
   </div>
   <script>
 
@@ -36,10 +56,10 @@
 
       const pattern = document.getElementById('pattern').value;
       const startNumber = document.getElementById('start').value;
-      parent.postMessage({ pluginMessage: { type: 'page-numbers', pattern, startNumber } }, '*')
+      const direction = document.getElementById('direction').checked;
+      parent.postMessage({ pluginMessage: { type: 'page-numbers', pattern, startNumber, direction } }, '*')
 
     }
-
 
   </script>
   <style>
@@ -114,7 +134,7 @@
       box-sizing: border-box;
       display: flex;
       justify-content: space-between;
-      align-content: center;
+      align-items: center;
 
     }
 
@@ -159,7 +179,7 @@
 
     }
 
-    button {
+    .button {
 
       padding: 5px 15px;
       background-color: transparent;
@@ -172,12 +192,83 @@
 
     }
 
-    button:hover {
+    .button:hover {
 
       box-shadow: 0px 1px 0px #000000;
       cursor: pointer;
       margin-bottom: -2px;
       margin-top: 2px;
+
+    }
+
+    .radio-button-wrapper {
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+    }
+
+    .radio-button {
+
+      position: relative;
+
+    }
+
+    .radio-button input {
+
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      margin: 0;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+
+    }
+
+    .arrow {
+
+      position: relative;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      margin-right: 5px;
+
+    }
+
+    .arrow svg {
+
+      width: auto;
+      height: 20px;
+
+    }
+
+    .radio-button input:checked ~ .arrow {
+
+      background: black;
+      box-shadow: 0px 0 0px #000000;
+      margin-bottom: -3px;
+      margin-top: 3px;
+
+    }
+
+    .radio-button input:hover ~ .arrow {
+
+      box-shadow: 0px 0 0px #000000;
+      margin-bottom: -3px;
+      margin-top: 3px;
+
+    }
+
+    .radio-button input:checked ~ .arrow svg {
+
+      fill: #00F0FF;
 
     }
   </style>
