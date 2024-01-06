@@ -1,50 +1,89 @@
 
 <body>
-  <ul class="steps">
-    <li>Insert the pattern into the frame(s)</li>
-    <li>Select all those frames</li>
-    <li>Click 'Numerate' button</li>
-  </ul>
-  <div class="input-wrapper">
-    <div class="field-name">Pattern</div>
-    <input type="text" id="pattern" value="$p">
-    <div class="description">Insert this into the frames or type your own.</div>
-  </div>
-  <div class="input-wrapper">
-    <div class="field-name">Start number</div>
-    <input type="number" id="start" value="1" min="0">
-  </div>
-  <div class="input-wrapper">
-    <div class="field-name">Direction</div>
-    <div class="radio-button-wrapper">
-      <div class="radio-button">
-        <input type="radio" name="direction" id="direction" checked>
-        <div class="button arrow">
-          <svg viewBox="0 0 12 18" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.54368 0.233378C6.24341 -0.0668877 5.75659 -0.0668877 5.45632 0.233378L0.283854 5.40584C-0.0164115 5.70611 -0.0164117 6.19294 0.283854 6.4932L0.633771 6.84312C0.934036 7.14339 1.42086 7.14339 1.72113 6.84312L4.98369 3.58056L4.98369 17.2229C4.98369 17.6475 5.32793 17.9918 5.75257 17.9918H6.24743C6.67207 17.9918 7.01631 17.6475 7.01631 17.2229L7.01631 3.58056L10.2789 6.84312C10.5791 7.14339 11.066 7.14339 11.3662 6.84312L11.7161 6.4932C12.0164 6.19294 12.0164 5.70611 11.7161 5.40585L6.54368 0.233378Z"/>
-          </svg>
+  <div class="wrapper">
+    <div class="plugin-body">
+      <ul class="steps">
+        <li>Insert the pattern into the frame(s)</li>
+        <li>Select all those frames</li>
+        <li>Click 'Paginate' button</li>
+      </ul>
+      <div class="input-wrapper">
+        <div class="field-name">Pattern</div>
+        <div class="text-field-wrapper">
+          <input type="text" class="text-input" id="pattern" value="$p">
+          <div class="button button-text" id="copy">Copy</div>
+        </div>
+        <div class="description">Use this or type your own</div>
+      </div>
+      <div class="input-wrapper">
+        <div class="field-name">Start number</div>
+        <div class="text-field-wrapper">
+          <input type="number" class="text-input" id="start" value="1" min="0">
         </div>
       </div>
-      <div class="radio-button">
-        <input type="radio" name="direction">
-        <div class="button arrow">
-          <svg viewBox="0 0 12 18" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5.45632 17.7666C5.75659 18.0669 6.24341 18.0669 6.54368 17.7666L11.7161 12.5942C12.0164 12.2939 12.0164 11.8071 11.7161 11.5068L11.3662 11.1569C11.066 10.8566 10.5791 10.8566 10.2789 11.1569L7.01631 14.4194L7.01631 0.77711C7.01631 0.352471 6.67207 0.00823199 6.24743 0.00823195L5.75257 0.00823191C5.32793 0.00823187 4.9837 0.352471 4.9837 0.77711L4.98369 14.4194L1.72113 11.1569C1.42086 10.8566 0.934037 10.8566 0.633771 11.1569L0.283855 11.5068C-0.0164114 11.8071 -0.0164114 12.2939 0.283855 12.5942L5.45632 17.7666Z"/>
+      <div class="input-wrapper">
+        <div class="accordion-head" id="accordion">
+          <div class="field-name">More</div>
+          <svg class="ex-cl-ar" viewBox="0 0 15 10" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14.0207 8.95193C13.2397 9.73298 11.9733 9.73298 11.1923 8.95193L7.53104 5.29068L3.86978 8.95193C3.08873 9.73298 1.8224 9.73298 1.04135 8.95193C0.260304 8.17088 0.260304 6.90455 1.04135 6.1235L5.40972 1.75514C6.58129 0.58357 8.48078 0.583569 9.65236 1.75514L14.0207 6.12351C14.8018 6.90455 14.8018 8.17088 14.0207 8.95193Z"/>
           </svg>
         </div>
+        <div class="accordion-content">
+          <div class="adt-stg-wrapper">
+            <div class="adt-stg-name">Directions</div>
+            <div class="adt-stg-btn-wrapper">
+              <div class="radio-button">
+                <input type="radio" name="direction">
+                <div class="button button-arrow button-active">
+                  <svg class="icon arrow-down" width="18" height="24" viewBox="0 0 18 24" xmlns="http://www.w3.org/2000/svg"><path></path></svg>
+                </div>
+              </div>
+              <div class="radio-button">
+                <input type="radio" name="direction" id="direction" checked>
+                <div class="button button-arrow button-active">
+                  <svg class="icon arrow-up" width="18" height="24" viewBox="0 0 18 24" xmlns="http://www.w3.org/2000/svg"><path></path></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="adt-stg-wrapper">
+            <div class="adt-stg-name">Style</div>
+            <div class="adt-stg-btn-wrapper">
+              <div class="radio-button">
+                <input type="radio" name="style" id="style" checked>
+                <div class="button button-text button-active">
+                  1,2,3
+                </div>
+              </div>
+              <div class="radio-button">
+                <input type="radio" name="style">
+                <div class="button button-text button-active">
+                  I,II,III
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="callbacks">
+        <div class="nothing"></div>
       </div>
     </div>
-  </div>
-  <div class="callbacks">
-    <div class="nothing">There are no frames selected.</div>
-  </div>
-  <div class="footer">
-    <div>
-      <a href="https://github.com/resul-celik/pagenum" target="_blank">Github</a>
+    <div class="footer">
+      <div>
+        <a href="https://github.com/resul-celik/pagenum" target="_blank">Github</a>
+      </div>
+      <button class="button butto-paginate" id="numerate">Paginate</button>
     </div>
-    <button class="button" id="numerate">Numerate</button>
   </div>
   <script>
+
+    document.getElementById('accordion').onclick = () => {
+
+      document.querySelector('.accordion-content').classList.toggle('ac-c-active')
+      document.querySelector('.ex-cl-ar').classList.toggle('ex-cl-ar-active')
+
+    }
 
     window.onmessage = (e) => {
 
@@ -57,166 +96,237 @@
       const pattern = document.getElementById('pattern').value;
       const startNumber = document.getElementById('start').value;
       const direction = document.getElementById('direction').checked;
-      parent.postMessage({ pluginMessage: { type: 'page-numbers', pattern, startNumber, direction } }, '*')
+      const style = document.getElementById('style').checked;
+      parent.postMessage({ pluginMessage: { type: 'page-numbers', pattern, startNumber, direction, style } }, '*')
 
     }
+
+    // copy pattern
+
+    const patterText = document.getElementById('pattern');
+    const copyButton = document.getElementById('copy');
+
+    copyButton.addEventListener('click', function(){
+      patterText.select();
+      document.execCommand("copy");
+      copyButton.innerText = 'Copied!'
+      const clickTimeout = setTimeout(function(){
+        copyButton.innerText = 'Copy'
+      },1200)
+    })
 
   </script>
   <style>
 
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@1&family=Poppins:wght@700&display=swap');
 
-      padding: 10px;
-      font-family: 'Poppins', sans-serif;
-      background-color: #00F0FF;
-
+    :root {
+      --primary: #00F0FF;
+      --secondary: #000;
+      --primary-font: 'Poppins', sans-serif;
+      --secondary-font: 'Libre Baskerville', serif;
     }
-    
-    a, a:hover {
 
-      color: black;
+    body {
+      padding: 0;
+      margin: 0;
+      display: flex;
+      font-family: var(--primary-font);
+      background-color: var(--primary);
+    }
+
+    a, a:hover {
+      color: var(--secondary);
       margin: 0;
       padding: 0;
       text-decoration: underline;
       padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       font-size: 14px;
-
+      font-weight: 400;
     }
 
-    small {
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
 
-      margin: 0;
-      padding: 0;
+    ::-webkit-scrollbar-track {
+      background: var(--primary)
+    }
 
+    ::-webkit-scrollbar-thumb {
+      background: transparent;
+      border-right: 3px solid #00000021 
+    }
+
+    ::selection {
+      color: var(--primary);
+      background: var(--secondary);
+    }
+
+    .wrapper {
+      display: flex;
+      width: 100%;
+      padding: 15px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+      align-self: stretch;
+      box-sizing: border-box;
+    }
+
+    .plugin-body {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      overflow-y: scroll;
+      align-self: stretch;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
     }
 
     .steps {
-
-      list-style-type: decimal;
-      margin:  0 0 25px 0;
-      padding: 10px 10px 10px 25px;
-      border: 2px solid black;
+      list-style-image: url("data:image/svg+xml,%3Csvg width='21' height='11' viewBox='0 0 21 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath width='100%' d='M10.048 10.384C8.28804 10.384 6.08004 9.88802 4.62404 8.78402H3.45604C2.88004 8.17602 2.59204 7.05602 2.59204 5.47202C2.59204 4.27202 2.94404 2.96001 3.44004 2.40001C3.48804 2.38402 4.08004 2.43201 4.33604 2.43201C4.89604 2.43201 5.10404 2.40001 6.01604 1.68001C7.00804 0.896015 7.64804 0.640015 8.60804 0.640015C9.71204 0.640015 10.608 0.784015 11.28 1.05602C11.984 1.34402 12.544 1.50401 12.832 1.58401C13.024 1.63202 13.216 1.72801 13.344 1.82401C13.808 1.85602 14.272 1.88801 14.736 1.93602C15.472 2.01602 16.4 2.12802 17.056 2.20802C18.368 2.36802 18.928 2.73601 18.928 3.50401C18.928 4.25601 18.4 4.60802 17.36 4.60802C16.992 4.60802 16.24 4.56001 15.568 4.56001C15.056 4.56001 14.56 4.59201 14.096 4.62401C14.288 4.89602 14.352 5.16802 14.352 5.55202C14.352 6.06402 14.128 6.36802 13.664 6.57602C13.52 6.64002 13.44 6.70402 13.44 6.81602C13.44 6.99202 13.6 7.23201 13.6 7.53601C13.6 8.08001 13.328 8.46401 12.816 8.64001C12.672 8.68801 12.656 8.72001 12.656 8.96001C12.656 9.92001 11.744 10.384 10.048 10.384ZM10.048 9.84002H10.688C10.432 9.76002 10.096 9.63201 9.60004 9.37601C8.96004 9.04001 8.41604 8.60802 8.17604 8.25602C8.14404 8.17602 8.12804 8.04802 8.12804 7.93602C8.12804 7.72802 8.22404 7.53602 8.33604 7.40802C7.93604 7.20002 7.58404 6.99201 7.40804 6.84801C7.32804 6.75201 7.24804 6.57602 7.23204 6.36802C6.94404 6.46402 6.62404 6.49602 6.25604 6.49602C6.00004 6.49602 5.72804 6.46402 5.53604 6.41602V5.85602C5.71204 5.90402 6.04804 5.92002 6.25604 5.92002C6.70404 5.92002 7.05604 5.87201 7.34404 5.72801C7.48804 5.47201 7.74404 5.29602 8.06404 5.26402C8.01604 5.12002 7.98404 4.96001 7.98404 4.80001C7.98404 4.25601 8.33604 3.79202 8.99204 3.79202C9.23204 3.79202 9.47204 3.87202 9.72804 3.96802C9.80804 3.85602 9.90404 3.72801 9.98404 3.58401C9.63204 3.48802 9.36004 3.36001 9.24804 3.24801L9.68004 2.86402C9.87204 3.07202 11.584 3.39202 12.24 3.39202C12.672 3.39202 13.088 3.12002 13.088 2.52802V2.36802H13.072C13.072 2.32002 12.864 2.19201 12.688 2.14401C12.4 2.06401 11.792 1.88801 11.056 1.58401C10.464 1.34402 9.63204 1.21601 8.60804 1.21601C7.77604 1.21601 7.26404 1.42401 6.36804 2.14401C5.42404 2.89601 5.05604 3.00801 4.33604 3.00801C4.17604 3.00801 3.92004 2.99201 3.72804 2.97602C3.40804 3.53602 3.16804 4.54402 3.16804 5.47202C3.16804 6.75202 3.36004 7.66402 3.72804 8.20802H4.81604C5.98404 9.20002 8.00004 9.84002 10.048 9.84002ZM1.92004 9.31202C0.880041 9.31202 0.592041 7.05602 0.592041 5.58401C0.592041 4.12802 0.896041 1.84001 1.92004 1.84001H3.12004C3.31204 1.84001 3.44004 1.98401 3.44004 2.22401V2.25601C3.36004 2.16002 3.31204 2.14401 3.20004 2.14401C2.30404 2.14401 2.06404 4.14401 2.06404 5.58401C2.06404 7.05602 2.35204 9.04002 3.20004 9.04002C3.31204 9.04002 3.37604 8.99201 3.44004 8.88001V8.99202C3.44004 9.16802 3.36004 9.31202 3.12004 9.31202H1.92004ZM11.888 4.60802C12 4.22401 12.464 4.03201 12.928 4.03201C13.216 4.03201 13.376 4.04802 13.52 4.08002C14.16 4.04802 14.944 3.98401 15.568 3.98401C16.256 3.98401 17.008 4.03201 17.36 4.03201C18.128 4.03201 18.352 3.87201 18.352 3.50401C18.352 3.10401 18.016 2.94402 16.976 2.78401C16.336 2.68801 15.456 2.59201 14.656 2.51201C14.368 2.48001 14.016 2.46401 13.648 2.43201V2.51201C13.648 3.44001 13.008 3.96802 12.272 3.96802C11.856 3.96802 11.168 3.87201 10.544 3.72801C10.464 3.88801 10.368 4.03201 10.272 4.17601H10.288C10.56 4.27202 11.056 4.48001 11.888 4.60802ZM12.448 6.44802C12.704 6.44802 12.944 6.35202 13.36 6.09601C13.712 5.87201 13.776 5.82402 13.776 5.60002C13.776 5.21602 13.728 4.84801 13.424 4.60802C13.312 4.59201 13.216 4.59201 13.136 4.59201C12.528 4.59201 12.352 4.83201 12.352 5.24801C11.312 5.13601 10.736 4.92802 10.144 4.70401C9.74404 4.57601 9.31204 4.27202 8.96004 4.32001C8.78404 4.33602 8.54404 4.43202 8.54404 4.73602C8.54404 4.86402 8.62404 5.07201 8.64004 5.12002C8.94404 5.36001 9.55204 5.74401 10.592 6.11201C11.216 6.33601 12.032 6.44802 12.448 6.44802ZM12.192 8.22401C12.688 8.22401 13.088 8.04802 13.088 7.60002C13.088 7.34402 13.024 7.10402 12.96 6.94402C12.8 7.00802 12.688 7.02402 12.528 7.02402C12.16 7.02402 11.2 6.88002 10.512 6.65602C9.77604 6.41602 9.08804 6.08002 8.57604 5.76002C8.44804 5.71202 8.33604 5.68002 8.22404 5.68002C7.93604 5.68002 7.76004 5.93602 7.76004 6.20802C7.76004 6.33602 7.80804 6.48002 7.87204 6.57602C8.17604 6.80002 9.23204 7.34402 9.93604 7.61602C10.88 7.98402 11.584 8.22401 12.192 8.22401ZM11.584 9.45601C12.096 9.45601 12.176 9.05602 12.176 8.81602C12.176 8.78402 12.176 8.75201 12.16 8.72001H12.048C11.168 8.72001 10.368 8.32002 9.77604 8.08002C9.52004 7.96802 9.18404 7.82401 8.86404 7.66401C8.76804 7.76002 8.68804 7.92001 8.67204 8.06401C8.84804 8.30401 9.26404 8.64001 9.69604 8.88001C10.272 9.20001 10.608 9.45601 11.584 9.45601Z' fill='black'/%3E%3C/svg%3E");
+      font-family: var(--secondary-font);
+      padding: 10px 10px 10px 40px;
+      border: 2px solid var(--secondary);
       border-radius: 10px;
       box-sizing: border-box;
-      box-shadow: 0px 4px 0px #000000;
-
+      font-size: 14px;
+      line-height: 25px;
+      box-shadow: 0px 4px 0px var(--secondary);
+      font-style: italic;
+      margin: 0;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     .steps li {
-
       margin: 0;
       padding: 0;
-
     }
 
     .callbacks {
-
       font-size: 14px;
-
+      font-family: var(--secondary-font);
+      font-style: italic;
     }
 
     .nothing {
-
-      color:rgba(0, 0, 0, 0.288);
+      color: var(--secondary);
       font-size: inherit;
-
     }
 
     .footer {
-
       width: 100%;
-      position: relative;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      padding: 15px;
-      position: fixed;
       box-sizing: border-box;
       display: flex;
       justify-content: space-between;
       align-items: center;
-
-    }
-
-    .field-name, input[type=text], input[type=number] {
-
-      font-size: 40px;
-
+      background-color: var(--primary);
     }
 
     .input-wrapper {
-
-      margin-bottom: 15px;
-
+      width: 100%;
+      height: auto;
+      align-self: stretch;
     }
 
     .field-name {
-
+      font-family: var(--primary-font);
       font-weight: bold;
-      letter-spacing: -1px;
-
+      letter-spacing: 0px;
+      font-size: 35px;
     }
 
-    input[type=text], input[type=number] {
+    .text-field-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 2px dotted var(--secondary);
+    }
 
+    .text-input {
       width: 100%;
       height: auto;
       background-color: transparent;
       padding: 0 0 5px 0;
       outline: none;
-      border-top: none;
-      border-right: none;
-      border-bottom: 2px solid black;
-      border-left: none;
+      border: none;
+      font-family: var(--secondary-font); 
       font-style: italic;
-
+      font-size: 45px;
     }
 
     .description {
-
       font-size: 14px;
       margin-top: 5px;
-
+      font-family: var(--secondary-font);
+      font-style: italic;
     }
 
-    .button {
-
-      padding: 5px 15px;
-      background-color: transparent;
-      border: 2px solid black;
-      border-radius: 5px;
-      outline: none;
-      font-size: 16px;
-      font-weight: 600;
-      box-shadow: 0px 3px 0px #000000;
-
+    #accordion {
+      user-select: none;
+      -webkit-user-select: none;
     }
 
-    .button:hover {
-
-      box-shadow: 0px 1px 0px #000000;
-      cursor: pointer;
-      margin-bottom: -2px;
-      margin-top: 2px;
-
-    }
-
-    .radio-button-wrapper {
-
+    .accordion-head {
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .accordion-content {
+      width: 100%;
+      display: none;
       justify-content: flex-start;
       align-items: center;
+      flex-direction: column;
+      gap: 10px
+    }
 
+    .ac-c-active {
+      display: flex;
+    }
+
+    .ex-cl-ar {
+      width: 12px;
+      height: auto;
+      transform: rotate(180deg);
+    }
+
+    .ex-cl-ar-active {
+      transform: rotate(0deg);
+    }
+
+    .adt-stg-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .adt-stg-name {
+      font-size: 22px;
+      font-family: var(--secondary-font);
+      font-style: italic;
+    }
+
+    .adt-stg-btn-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 5px;
     }
 
     .radio-button {
-
       position: relative;
-
     }
 
     .radio-button input {
-
       position: absolute;
       opacity: 0;
       cursor: pointer;
@@ -224,52 +334,84 @@
       z-index: 2;
       width: 100%;
       height: 100%;
-
     }
 
-    .arrow {
-
-      position: relative;
-      top: 0;
-      left: 0;
+    .button {
+      padding: 0 15px;
+      width: auto;
+      height: 35px;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 40px;
-      height: 40px;
+      font-family: var(--primary-font);
+      background-color: transparent;
+      border: 2px solid var(--secondary);
+      outline: none;
+      font-size: 16px;
+      font-weight: 600;
+      box-shadow: 0px 3px 0px var(--secondary);
+      font-weight: bold;
+    }
+
+    .button:hover {
+      box-shadow: 0px 1px 0px var(--secondary);
+      cursor: pointer;
+      margin-bottom: -2px;
+      margin-top: 2px;
+    }
+
+    .butto-paginate {
+      border-radius: 5px;
+    }
+
+    .button-arrow {
+      width: 35px;
+      height: 35px;
       padding: 0;
-      margin-right: 5px;
-
+      border-radius: 50%;
     }
 
-    .arrow svg {
-
-      width: auto;
-      height: 20px;
-
+    .button-text {
+      border-radius: 35px;
     }
 
-    .radio-button input:checked ~ .arrow {
+    .icon {
+      fill: var(--secondary);
+    }
 
-      background: black;
-      box-shadow: 0px 0 0px #000000;
+    .icon path {
+      width: 18px;
+      height: 24px;
+    }
+
+    .arrow-up path {
+      d: path("M17.195 9.28229C13.4849 7.27842 10.7295 4.19672 8.99999 0.391113C7.27554 4.18092 4.51991 7.27582 0.804932 9.28229L1.42783 10.4356C4.73274 9.67768 6.89027 8.41548 8.15308 7.11418V23.6088H10.0668V7.33171C11.3542 8.55486 13.4518 9.72 16.5721 10.4356L17.195 9.28229Z");
+    }
+
+    .arrow-down path {
+      d: path("M9.77793 16.9542L9.77794 0.459595H7.86417L7.86417 16.7367C6.57679 15.5135 4.47924 14.3484 1.35886 13.6328L0.735962 14.7861C4.44613 16.79 7.20151 19.8717 8.93102 23.6773C10.6555 19.8875 13.4111 16.7926 17.1261 14.7861L16.5032 13.6328C13.1983 14.3907 11.0407 15.6529 9.77793 16.9542Z");
+    }
+
+    .radio-button input:checked ~ .button-active {
+      background: var(--secondary);
+      box-shadow: 0px 0 0px var(--secondary);
       margin-bottom: -3px;
       margin-top: 3px;
-
     }
 
-    .radio-button input:hover ~ .arrow {
-
-      box-shadow: 0px 0 0px #000000;
+    .radio-button input:hover ~ .button-active {
+      box-shadow: 0px 0 0px var(--secondary);
       margin-bottom: -3px;
       margin-top: 3px;
-
     }
 
-    .radio-button input:checked ~ .arrow svg {
+    .radio-button input:checked ~ .button-active .icon {
+      fill: var(--primary);
+    }
 
-      fill: #00F0FF;
-
+    .radio-button input:checked ~ .button-active {
+      color: var(--primary);
+      fill: var(--primary);
     }
   </style>
 </body>
