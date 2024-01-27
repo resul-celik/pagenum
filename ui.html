@@ -1,4 +1,3 @@
-
 <body>
   <div class="wrapper">
     <div class="plugin-body">
@@ -25,7 +24,8 @@
         <div class="accordion-head" id="accordion">
           <div class="field-name">More</div>
           <svg class="ex-cl-ar" viewBox="0 0 15 10" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14.0207 8.95193C13.2397 9.73298 11.9733 9.73298 11.1923 8.95193L7.53104 5.29068L3.86978 8.95193C3.08873 9.73298 1.8224 9.73298 1.04135 8.95193C0.260304 8.17088 0.260304 6.90455 1.04135 6.1235L5.40972 1.75514C6.58129 0.58357 8.48078 0.583569 9.65236 1.75514L14.0207 6.12351C14.8018 6.90455 14.8018 8.17088 14.0207 8.95193Z"/>
+            <path
+              d="M14.0207 8.95193C13.2397 9.73298 11.9733 9.73298 11.1923 8.95193L7.53104 5.29068L3.86978 8.95193C3.08873 9.73298 1.8224 9.73298 1.04135 8.95193C0.260304 8.17088 0.260304 6.90455 1.04135 6.1235L5.40972 1.75514C6.58129 0.58357 8.48078 0.583569 9.65236 1.75514L14.0207 6.12351C14.8018 6.90455 14.8018 8.17088 14.0207 8.95193Z" />
           </svg>
         </div>
         <div class="accordion-content">
@@ -35,13 +35,19 @@
               <div class="radio-button">
                 <input type="radio" name="direction">
                 <div class="button button-arrow button-active">
-                  <svg class="icon arrow-down" width="18" height="24" viewBox="0 0 18 24" xmlns="http://www.w3.org/2000/svg"><path></path></svg>
+                  <svg class="icon arrow-down" width="18" height="24" viewBox="0 0 18 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path></path>
+                  </svg>
                 </div>
               </div>
               <div class="radio-button">
                 <input type="radio" name="direction" id="direction" checked>
                 <div class="button button-arrow button-active">
-                  <svg class="icon arrow-up" width="18" height="24" viewBox="0 0 18 24" xmlns="http://www.w3.org/2000/svg"><path></path></svg>
+                  <svg class="icon arrow-up" width="18" height="24" viewBox="0 0 18 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path></path>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -89,7 +95,7 @@
 
       document.querySelector(".callbacks").innerHTML = e.data.pluginMessage
 
-    } 
+    }
 
     document.getElementById('numerate').onclick = () => {
 
@@ -106,22 +112,21 @@
     const patterText = document.getElementById('pattern');
     const copyButton = document.getElementById('copy');
 
-    copyButton.addEventListener('click', function(){
+    copyButton.addEventListener('click', function () {
       patterText.select();
       document.execCommand("copy");
       copyButton.innerText = 'Copied!'
-      const clickTimeout = setTimeout(function(){
+      const clickTimeout = setTimeout(function () {
         copyButton.innerText = 'Copy'
-      },1200)
+      }, 1200)
     })
 
   </script>
   <style>
-
     @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@1&family=Poppins:wght@700&display=swap');
 
     :root {
-      --primary: #00F0FF;
+      --primary: #69DDFF;
       --secondary: #000;
       --primary-font: 'Poppins', sans-serif;
       --secondary-font: 'Libre Baskerville', serif;
@@ -135,7 +140,8 @@
       background-color: var(--primary);
     }
 
-    a, a:hover {
+    a,
+    a:hover {
       color: var(--secondary);
       margin: 0;
       padding: 0;
@@ -156,7 +162,7 @@
 
     ::-webkit-scrollbar-thumb {
       background: transparent;
-      border-right: 3px solid #00000021 
+      border-right: 3px solid #00000021
     }
 
     ::selection {
@@ -255,7 +261,7 @@
       padding: 0 0 5px 0;
       outline: none;
       border: none;
-      font-family: var(--secondary-font); 
+      font-family: var(--secondary-font);
       font-style: italic;
       font-size: 45px;
     }
@@ -392,24 +398,24 @@
       d: path("M9.77793 16.9542L9.77794 0.459595H7.86417L7.86417 16.7367C6.57679 15.5135 4.47924 14.3484 1.35886 13.6328L0.735962 14.7861C4.44613 16.79 7.20151 19.8717 8.93102 23.6773C10.6555 19.8875 13.4111 16.7926 17.1261 14.7861L16.5032 13.6328C13.1983 14.3907 11.0407 15.6529 9.77793 16.9542Z");
     }
 
-    .radio-button input:checked ~ .button-active {
+    .radio-button input:checked~.button-active {
       background: var(--secondary);
       box-shadow: 0px 0 0px var(--secondary);
       margin-bottom: -3px;
       margin-top: 3px;
     }
 
-    .radio-button input:hover ~ .button-active {
+    .radio-button input:hover~.button-active {
       box-shadow: 0px 0 0px var(--secondary);
       margin-bottom: -3px;
       margin-top: 3px;
     }
 
-    .radio-button input:checked ~ .button-active .icon {
+    .radio-button input:checked~.button-active .icon {
       fill: var(--primary);
     }
 
-    .radio-button input:checked ~ .button-active {
+    .radio-button input:checked~.button-active {
       color: var(--primary);
       fill: var(--primary);
     }

@@ -19,7 +19,7 @@ figma.ui.onmessage = msg => {
 /* Functions (Start) */
 // To roman
 
-const toRoman = (num:any) => {
+const toRoman = (num: any) => {
     let result = '';
     const romanNumerals = [
         { letter: 'M', value: 1000 },
@@ -48,8 +48,8 @@ const toRoman = (num:any) => {
 }
 
 /* Functions (End) */
-const pageNums = async (msg:any) => {
-    
+const pageNums = async (msg: any) => {
+
     var startNumber = 1;
     var detectedPatterns = 0;
     var pattern = '$p';
@@ -71,16 +71,16 @@ const pageNums = async (msg:any) => {
                 id: selections.id
             });
 
-            selectionIndex.sort(function(a, b) {
+            selectionIndex.sort(function (a, b) {
                 return b.index - a.index;
             })
         }
     }
     for (const frameIndex of selectionIndex) {
-        var frameNode:any = figma.getNodeById(frameIndex.id);
+        var frameNode: any = figma.getNodeById(frameIndex.id);
         var textObjects = frameNode?.findAll((frameNode: { type: string; }) => frameNode.type === "TEXT").filter((frameNode: { characters: string; }) => frameNode.characters === pattern);
-        
-        textObjects.forEach(function (text:any) {
+
+        textObjects.forEach(function (text: any) {
             var newText = startNumber.toString()
 
             if (!msg.style) {
@@ -92,25 +92,25 @@ const pageNums = async (msg:any) => {
             figma.loadFontAsync(text.fontName).then(() => { text.characters = newText })
 
             if (textObjects.length != 0) {
-    
-            if (msg.direction) {
-    
-                startNumber++
-    
-            } else {
-    
-                startNumber--
-    
+
+                if (msg.direction) {
+
+                    startNumber++
+
+                } else {
+
+                    startNumber--
+
+                }
+
             }
-    
-            }
-    
-            
-        }) 
+
+
+        })
 
         frames = true
     }
-        
+
     // Feedbacks
     if (frames) {
         if (detectedPatterns == 0) {
@@ -123,5 +123,5 @@ const pageNums = async (msg:any) => {
     else {
         figma.notify(`Please select at least one frame first. `);
     }
-    
+
 }
