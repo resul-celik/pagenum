@@ -1,7 +1,7 @@
 # Figma Pagenum Plugin
 
 Pagenum makes it simple to create page numbers within frames.
-<img src="images/pagenum.gif" width="400" />
+<img src="images/pagenum.gif" width="100%" />
 
 ## How it works
 
