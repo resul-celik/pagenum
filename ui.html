@@ -1,456 +1,489 @@
-<body>
-  <div class="wrapper">
-    <div class="plugin-body">
-      <div class="input-wrapper">
-        <div class="field-name">Pattern</div>
-        <div class="text-field-wrapper">
-          <input type="text" class="text-input" id="pattern" value="$p" />
-          <div class="button button-text" id="copy">Copy</div>
-        </div>
-        <div class="description">
-          This will be replaced with numbers. Insert it into the frame(s) or
-          type your own before paginating.
-        </div>
-      </div>
-      <div class="input-wrapper">
-        <div class="field-name">Settings</div>
-        <div class="input-list">
-          <div class="input-list-item">
-            <div class="input-list-name">Start number</div>
-            <div class="text-field-wrapper">
-              <input
-                type="number"
-                class="text-input start-number"
-                id="start"
-                value="1"
-                min="0"
-              />
-            </div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <title>Pagenum</title>
+    <style>
+      :root {
+        --primary: #95d9ff;
+        --secondary: #000;
+        --primary-font: "Poppins", sans-serif;
+        --secondary-font: "Libre Baskerville", serif;
+      }
+
+      body {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        font-family: var(--primary-font);
+        background-color: var(--primary);
+      }
+
+      a,
+      a:hover {
+        color: var(--secondary);
+        margin: 0;
+        padding: 0;
+        text-decoration: underline;
+        padding: 0;
+        font-family: var(--primary-font);
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--primary);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: transparent;
+        border-right: 3px solid #00000021;
+      }
+
+      ::selection {
+        color: var(--primary);
+        background: var(--secondary);
+      }
+
+      .wrapper {
+        display: flex;
+        width: 100%;
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        align-self: stretch;
+        box-sizing: border-box;
+      }
+
+      .plugin-body {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        align-self: stretch;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+      }
+
+      .frame-count {
+        width: auto;
+        min-width: 16px;
+        height: 16px;
+        display: flex;
+        padding: 0 4px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 32px;
+        background: var(--secondary);
+        font-size: 12px;
+        font-family: var(--primary-font);
+        color: var(--primary);
+        box-sizing: border-box;
+      }
+
+      .nothing {
+        color: var(--secondary);
+        font-size: inherit;
+      }
+
+      .footer {
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--primary);
+      }
+
+      .footer-menu {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--primary-font);
+        font-size: 14px;
+      }
+
+      .input-wrapper {
+        width: 100%;
+        height: auto;
+        align-self: stretch;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .field-name {
+        font-family: var(--primary-font);
+        font-weight: bold;
+        letter-spacing: 0px;
+        font-size: 35px;
+        line-height: 35px;
+      }
+
+      .text-field-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 2px dotted var(--secondary);
+      }
+
+      .input-list {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .input-list-item {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+      }
+
+      .input-list-item .text-field-wrapper,
+      .input-list-item .adt-stg-btn-wrapper {
+        width: 70%;
+      }
+
+      .input-list-name {
+        width: 100%;
+        font-family: var(--secondary-font);
+        font-size: 18px;
+        font-weight: 400;
+        font-style: italic;
+      }
+
+      .text-input {
+        width: 100%;
+        height: auto;
+        background-color: transparent;
+        padding: 0 0 5px 0;
+        outline: none;
+        border: none;
+        font-family: var(--secondary-font);
+        font-style: italic;
+        font-size: 45px;
+      }
+
+      .start-number {
+        font-size: 26px;
+      }
+
+      .description {
+        font-size: 13px;
+        margin-top: 5px;
+        font-family: var(--secondary-font);
+        font-weight: 400;
+        font-style: italic;
+        letter-spacing: 0.6px;
+      }
+
+      .adt-stg-btn-wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .radio-button {
+        position: relative;
+      }
+
+      .radio-button input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        margin: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+      }
+
+      .button {
+        padding: 0 13px;
+        width: auto;
+        height: 31px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: var(--primary-font);
+        background-color: transparent;
+        border: 1px solid var(--secondary);
+        outline: none;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0px 3px 0px var(--secondary);
+        font-weight: bold;
+      }
+
+      .button:hover {
+        box-shadow: 0px 1px 0px var(--secondary);
+        cursor: pointer;
+        margin-bottom: -2px;
+        margin-top: 2px;
+      }
+
+      .button-paginate {
+        width: 100%;
+        border-radius: 5px;
+        font-size: 16px;
+        padding: 0 15px;
+        height: 40px;
+        gap: 5px;
+      }
+
+      .button-arrow {
+        width: 31px;
+        height: 31px;
+        padding: 0;
+        border-radius: 50%;
+      }
+
+      .button-text {
+        border-radius: 35px;
+      }
+
+      .icon {
+        fill: var(--secondary);
+      }
+
+      .icon path {
+        width: 18px;
+        height: 24px;
+      }
+
+      .arrow-up path {
+        d: path(
+          "M14.7383 7.9774C11.6876 6.32974 9.42205 3.79586 7.99998 0.666748C6.58207 3.78286 4.3163 6.3276 1.2617 7.9774L1.77388 8.92569C4.49129 8.30251 6.2653 7.26468 7.30362 6.1947V15.3334H8.87719V6.37356C9.93572 7.37928 11.6604 8.3373 14.2261 8.92569L14.7383 7.9774Z"
+        );
+      }
+
+      .arrow-down path {
+        d: path(
+          "M1.26169 8.0226C4.31233 9.67026 6.57791 12.2041 7.99997 15.3333C9.41788 12.2171 11.6837 9.6724 14.7383 8.0226L14.2261 7.07431C11.5087 7.69749 9.73466 8.73532 8.69634 9.8053L8.69634 0.666585L7.12277 0.666585L7.12277 9.62644C6.06424 8.62072 4.33956 7.6627 1.77387 7.07431L1.26169 8.0226Z"
+        );
+      }
+
+      .radio-button input:checked ~ .button-active {
+        background: var(--secondary);
+        box-shadow: 0px 0 0px var(--secondary);
+        margin-bottom: -3px;
+        margin-top: 3px;
+      }
+
+      .radio-button input:hover ~ .button-active {
+        box-shadow: 0px 0 0px var(--secondary);
+        margin-bottom: -3px;
+        margin-top: 3px;
+      }
+
+      .radio-button input:checked ~ .button-active .icon {
+        fill: var(--primary);
+      }
+
+      .radio-button input:checked ~ .button-active {
+        color: var(--primary);
+        fill: var(--primary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="plugin-body">
+        <div class="input-wrapper">
+          <div class="field-name">Pattern</div>
+          <div class="text-field-wrapper">
+            <input type="text" class="text-input" id="pattern" value="$p" />
+            <div class="button button-text" id="copy">Copy</div>
           </div>
-          <div class="input-list-item">
-            <div class="input-list-name">Direction</div>
-            <div class="adt-stg-btn-wrapper">
-              <div class="radio-button">
-                <input type="radio" name="direction" />
-                <div class="button button-arrow button-active">
-                  <svg
-                    class="icon arrow-down"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path></path>
-                  </svg>
+          <div class="description">
+            This'll be replaced by numbers. Insert it into your frames, or type
+            your own custom pattern.
+          </div>
+        </div>
+        <div class="input-wrapper">
+          <div class="field-name">Settings</div>
+          <div class="input-list">
+            <div class="input-list-item">
+              <div class="input-list-name">Starting number</div>
+              <div class="text-field-wrapper">
+                <input
+                  type="number"
+                  class="text-input start-number"
+                  id="start"
+                  value="1"
+                  min="0"
+                />
+              </div>
+            </div>
+            <div class="input-list-item">
+              <div class="input-list-name">Pagination direction</div>
+              <div class="adt-stg-btn-wrapper">
+                <div class="radio-button">
+                  <input type="radio" name="direction" />
+                  <div class="button button-arrow button-active">
+                    <svg
+                      class="icon arrow-down"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path></path>
+                    </svg>
+                  </div>
+                </div>
+                <div class="radio-button">
+                  <input type="radio" name="direction" id="direction" checked />
+                  <div class="button button-arrow button-active">
+                    <svg
+                      class="icon arrow-up"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path></path>
+                    </svg>
+                  </div>
                 </div>
               </div>
-              <div class="radio-button">
-                <input type="radio" name="direction" id="direction" checked />
-                <div class="button button-arrow button-active">
-                  <svg
-                    class="icon arrow-up"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path></path>
-                  </svg>
+            </div>
+            <div class="input-list-item">
+              <div class="input-list-name">Numbering style</div>
+              <div class="adt-stg-btn-wrapper">
+                <div class="radio-button">
+                  <input type="radio" name="style" id="style" checked />
+                  <div class="button button-text button-active">1,2,3</div>
+                </div>
+                <div class="radio-button">
+                  <input type="radio" name="style" />
+                  <div class="button button-text button-active">I,II,III</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="input-list-item">
-            <div class="input-list-name">Style</div>
-            <div class="adt-stg-btn-wrapper">
-              <div class="radio-button">
-                <input type="radio" name="style" id="style" checked />
-                <div class="button button-text button-active">1,2,3</div>
-              </div>
-              <div class="radio-button">
-                <input type="radio" name="style" />
-                <div class="button button-text button-active">I,II,III</div>
-              </div>
-            </div>
-          </div>
         </div>
+        <button class="button button-paginate" id="numerate">
+          <div class="frame-count">0</div>
+          Paginate
+        </button>
       </div>
-      <button class="button button-paginate" id="numerate">
-        <div class="frame-count">0</div>
-        Paginate
-      </button>
-    </div>
-    <div class="footer">
-      <svg
-        width="96"
-        height="20"
-        viewBox="0 0 96 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M91.2835 4.51447C92.5632 4.51447 93.5783 4.90206 94.3289 5.67726C95.0918 6.45246 95.4733 7.52912 95.4733 8.90725V14.9243H92.3356V9.33177C92.3356 8.66731 92.1572 8.15666 91.8003 7.79983C91.4558 7.43069 90.9759 7.24611 90.3607 7.24611C89.7454 7.24611 89.2594 7.43069 88.9025 7.79983C88.558 8.15666 88.3858 8.66731 88.3858 9.33177V14.9243H85.248V9.33177C85.248 8.66731 85.0696 8.15666 84.7128 7.79983C84.3683 7.43069 83.8884 7.24611 83.2731 7.24611C82.6579 7.24611 82.1719 7.43069 81.815 7.79983C81.4705 8.15666 81.2982 8.66731 81.2982 9.33177V14.9243H78.1421V4.62521H81.2982V5.9172C81.6182 5.48654 82.0365 5.14816 82.5533 4.90206C83.0701 4.64367 83.6546 4.51447 84.3067 4.51447C85.0819 4.51447 85.771 4.68058 86.3739 5.01281C86.9892 5.34503 87.4691 5.81877 87.8136 6.434C88.1704 5.86798 88.6565 5.40656 89.2717 5.04972C89.8869 4.69288 90.5575 4.51447 91.2835 4.51447Z"
-          fill="black"
-        />
-        <path
-          d="M76.6133 4.62521V14.9243H73.4572V13.5215C73.1372 13.9768 72.7004 14.3459 72.1467 14.6289C71.6053 14.8996 71.0024 15.035 70.3379 15.035C69.5504 15.035 68.8552 14.8627 68.2523 14.5182C67.6493 14.1614 67.1818 13.6507 66.8495 12.9863C66.5173 12.3218 66.3512 11.5405 66.3512 10.6422V4.62521H69.4889V10.2177C69.4889 10.9068 69.6673 11.442 70.0241 11.8235C70.381 12.2049 70.8609 12.3956 71.4638 12.3956C72.079 12.3956 72.5651 12.2049 72.9219 11.8235C73.2787 11.442 73.4572 10.9068 73.4572 10.2177V4.62521H76.6133Z"
-          fill="black"
-        />
-        <path
-          d="M61.0203 4.51447C62.2261 4.51447 63.1859 4.90822 63.8996 5.69572C64.6255 6.47092 64.9885 7.54143 64.9885 8.90725V14.9243H61.8508V9.33177C61.8508 8.6427 61.6724 8.10744 61.3156 7.726C60.9587 7.34455 60.4789 7.15383 59.8759 7.15383C59.273 7.15383 58.7931 7.34455 58.4363 7.726C58.0794 8.10744 57.901 8.6427 57.901 9.33177V14.9243H54.7449V4.62521H57.901V5.99103C58.2209 5.53576 58.6516 5.17892 59.193 4.92052C59.7344 4.64982 60.3435 4.51447 61.0203 4.51447Z"
-          fill="black"
-        />
-        <path
-          d="M53.8181 9.60862C53.8181 9.90393 53.7996 10.2116 53.7627 10.5315H46.6198C46.6691 11.1713 46.8721 11.6635 47.2289 12.008C47.5981 12.3403 48.0472 12.5064 48.5763 12.5064C49.3638 12.5064 49.9114 12.1742 50.219 11.5097H53.5782C53.4059 12.1865 53.0921 12.7955 52.6368 13.3369C52.1939 13.8784 51.634 14.3029 50.9572 14.6105C50.2805 14.9181 49.5238 15.0719 48.687 15.0719C47.678 15.0719 46.7798 14.8566 45.9923 14.4259C45.2048 13.9953 44.5896 13.38 44.1466 12.5802C43.7036 11.7804 43.4821 10.8452 43.4821 9.77473C43.4821 8.70422 43.6975 7.76906 44.1281 6.96926C44.5711 6.16945 45.1863 5.55421 45.9738 5.12355C46.7613 4.69288 47.6657 4.47755 48.687 4.47755C49.6837 4.47755 50.5697 4.68673 51.3448 5.10509C52.12 5.52345 52.723 6.12023 53.1536 6.89543C53.5966 7.67063 53.8181 8.57502 53.8181 9.60862ZM50.5881 8.77805C50.5881 8.23664 50.4035 7.80598 50.0344 7.48606C49.6653 7.16613 49.2038 7.00617 48.6501 7.00617C48.121 7.00617 47.6719 7.15998 47.3027 7.4676C46.9459 7.77522 46.7244 8.21203 46.6383 8.77805H50.5881Z"
-          fill="black"
-        />
-        <path
-          d="M36.2338 4.47755C36.9598 4.47755 37.5935 4.62521 38.1349 4.92052C38.6886 5.21583 39.1131 5.60343 39.4085 6.08332V4.62521H42.5646V14.9058C42.5646 15.8533 42.3739 16.7084 41.9925 17.4713C41.6233 18.2465 41.0511 18.8618 40.2759 19.317C39.5131 19.7723 38.5594 20 37.4151 20C35.8893 20 34.6527 19.637 33.7052 18.911C32.7578 18.1973 32.2164 17.2252 32.081 15.9948H35.2002C35.2987 16.3885 35.5325 16.6961 35.9016 16.9176C36.2708 17.1514 36.726 17.2683 37.2674 17.2683C37.9196 17.2683 38.4364 17.0776 38.8178 16.6961C39.2116 16.327 39.4085 15.7302 39.4085 14.9058V13.4477C39.1008 13.9276 38.6763 14.3213 38.1349 14.6289C37.5935 14.9243 36.9598 15.0719 36.2338 15.0719C35.3848 15.0719 34.6158 14.8566 33.9267 14.4259C33.2376 13.9829 32.6901 13.3616 32.284 12.5618C31.8903 11.7496 31.6934 10.8145 31.6934 9.75628C31.6934 8.69807 31.8903 7.76906 32.284 6.96926C32.6901 6.16945 33.2376 5.55421 33.9267 5.12355C34.6158 4.69288 35.3848 4.47755 36.2338 4.47755ZM39.4085 9.77473C39.4085 8.98723 39.187 8.36584 38.744 7.91057C38.3133 7.45529 37.7842 7.22766 37.1567 7.22766C36.5292 7.22766 35.9939 7.45529 35.5509 7.91057C35.1203 8.35354 34.9049 8.96877 34.9049 9.75628C34.9049 10.5438 35.1203 11.1713 35.5509 11.6389C35.9939 12.0942 36.5292 12.3218 37.1567 12.3218C37.7842 12.3218 38.3133 12.0942 38.744 11.6389C39.187 11.1836 39.4085 10.5622 39.4085 9.77473Z"
-          fill="black"
-        />
-        <path
-          d="M19.9047 9.75628C19.9047 8.69807 20.1015 7.76906 20.4953 6.96926C20.9013 6.16945 21.4489 5.55421 22.138 5.12355C22.827 4.69288 23.5961 4.47755 24.4451 4.47755C25.1711 4.47755 25.8048 4.62521 26.3462 4.92052C26.8999 5.21583 27.3244 5.60343 27.6197 6.08332V4.62521H30.7759V14.9243H27.6197V13.4661C27.3121 13.946 26.8814 14.3336 26.3277 14.6289C25.7863 14.9243 25.1526 15.0719 24.4266 15.0719C23.5899 15.0719 22.827 14.8566 22.138 14.4259C21.4489 13.9829 20.9013 13.3616 20.4953 12.5618C20.1015 11.7496 19.9047 10.8145 19.9047 9.75628ZM27.6197 9.77473C27.6197 8.98723 27.3982 8.36584 26.9553 7.91057C26.5246 7.45529 25.9955 7.22766 25.368 7.22766C24.7404 7.22766 24.2052 7.45529 23.7622 7.91057C23.3315 8.35354 23.1162 8.96877 23.1162 9.75628C23.1162 10.5438 23.3315 11.1713 23.7622 11.6389C24.2052 12.0942 24.7404 12.3218 25.368 12.3218C25.9955 12.3218 26.5246 12.0942 26.9553 11.6389C27.3982 11.1836 27.6197 10.5622 27.6197 9.77473Z"
-          fill="black"
-        />
-        <path
-          d="M19.6274 6.13869C19.6274 6.88928 19.4551 7.57834 19.1106 8.20588C18.766 8.82112 18.2369 9.31946 17.5233 9.70091C16.8096 10.0824 15.9237 10.2731 14.8654 10.2731H12.909V14.9243H9.75283V1.96739H14.8654C15.899 1.96739 16.7727 2.14581 17.4864 2.50265C18.2 2.85948 18.7353 3.35167 19.0921 3.97921C19.449 4.60675 19.6274 5.32658 19.6274 6.13869ZM14.6255 7.76291C15.2284 7.76291 15.6776 7.62141 15.9729 7.3384C16.2682 7.05539 16.4158 6.65549 16.4158 6.13869C16.4158 5.62189 16.2682 5.22199 15.9729 4.93898C15.6776 4.65597 15.2284 4.51447 14.6255 4.51447H12.909V7.76291H14.6255Z"
-          fill="black"
-        />
-        <path
-          d="M8.01037 11.6574C8.01037 12.2234 7.87502 12.7648 7.60432 13.2816C7.34592 13.7984 6.93371 14.2229 6.36769 14.5551C5.81398 14.8873 5.12492 15.0535 4.3005 15.0535V16.53H3.70987V15.035C2.65167 14.9366 1.79034 14.5797 1.12588 13.9645C0.461427 13.3369 0.0984377 12.5925 0.0369142 11.7312H0.904397C0.978225 12.3218 1.24893 12.8755 1.71651 13.3923C2.19639 13.9091 2.86085 14.2167 3.70987 14.3152V8.63039C2.89776 8.3966 2.24561 8.16897 1.75342 7.94748C1.26123 7.726 0.842873 7.38762 0.498341 6.93234C0.166114 6.47707 0 5.86798 0 5.10509C0 4.48986 0.141504 3.93614 0.424513 3.44395C0.719826 2.95177 1.14434 2.56417 1.69805 2.28116C2.26407 1.98584 2.93468 1.83819 3.70987 1.83819V0.232422H4.3005V1.85665C5.28488 1.95508 6.07238 2.28116 6.66301 2.83487C7.25363 3.38858 7.61662 4.04689 7.75197 4.80978H6.88449C6.77375 4.30528 6.50304 3.83155 6.07238 3.38858C5.64171 2.94561 5.05109 2.67491 4.3005 2.57647V8.02131C5.088 8.2428 5.734 8.47043 6.23849 8.70422C6.74299 8.93801 7.16135 9.29485 7.49357 9.77473C7.83811 10.2423 8.01037 10.8699 8.01037 11.6574ZM0.849026 5.06818C0.849026 5.63419 0.972073 6.09562 1.21817 6.45246C1.47657 6.8093 1.80264 7.0923 2.19639 7.30148C2.60245 7.49836 3.10694 7.68293 3.70987 7.8552V2.53956C2.83624 2.55186 2.14102 2.7795 1.62422 3.22247C1.10742 3.65313 0.849026 4.26837 0.849026 5.06818ZM4.3005 14.3521C5.22335 14.3398 5.93087 14.0814 6.42306 13.5769C6.92756 13.0724 7.1798 12.4449 7.1798 11.6943C7.1798 10.8575 6.92756 10.2362 6.42306 9.8301C5.93087 9.42405 5.22335 9.08567 4.3005 8.81496V14.3521Z"
-          fill="black"
-        />
-      </svg>
-      <div>
-        <a href="https://github.com/resul-celik/pagenum" target="_blank"
-          >Github</a
+      <div class="footer">
+        <svg
+          width="96"
+          height="20"
+          viewBox="0 0 96 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
+          <path
+            d="M91.2835 4.51447C92.5632 4.51447 93.5783 4.90206 94.3289 5.67726C95.0918 6.45246 95.4733 7.52912 95.4733 8.90725V14.9243H92.3356V9.33177C92.3356 8.66731 92.1572 8.15666 91.8003 7.79983C91.4558 7.43069 90.9759 7.24611 90.3607 7.24611C89.7454 7.24611 89.2594 7.43069 88.9025 7.79983C88.558 8.15666 88.3858 8.66731 88.3858 9.33177V14.9243H85.248V9.33177C85.248 8.66731 85.0696 8.15666 84.7128 7.79983C84.3683 7.43069 83.8884 7.24611 83.2731 7.24611C82.6579 7.24611 82.1719 7.43069 81.815 7.79983C81.4705 8.15666 81.2982 8.66731 81.2982 9.33177V14.9243H78.1421V4.62521H81.2982V5.9172C81.6182 5.48654 82.0365 5.14816 82.5533 4.90206C83.0701 4.64367 83.6546 4.51447 84.3067 4.51447C85.0819 4.51447 85.771 4.68058 86.3739 5.01281C86.9892 5.34503 87.4691 5.81877 87.8136 6.434C88.1704 5.86798 88.6565 5.40656 89.2717 5.04972C89.8869 4.69288 90.5575 4.51447 91.2835 4.51447Z"
+            fill="black"
+          />
+          <path
+            d="M76.6133 4.62521V14.9243H73.4572V13.5215C73.1372 13.9768 72.7004 14.3459 72.1467 14.6289C71.6053 14.8996 71.0024 15.035 70.3379 15.035C69.5504 15.035 68.8552 14.8627 68.2523 14.5182C67.6493 14.1614 67.1818 13.6507 66.8495 12.9863C66.5173 12.3218 66.3512 11.5405 66.3512 10.6422V4.62521H69.4889V10.2177C69.4889 10.9068 69.6673 11.442 70.0241 11.8235C70.381 12.2049 70.8609 12.3956 71.4638 12.3956C72.079 12.3956 72.5651 12.2049 72.9219 11.8235C73.2787 11.442 73.4572 10.9068 73.4572 10.2177V4.62521H76.6133Z"
+            fill="black"
+          />
+          <path
+            d="M61.0203 4.51447C62.2261 4.51447 63.1859 4.90822 63.8996 5.69572C64.6255 6.47092 64.9885 7.54143 64.9885 8.90725V14.9243H61.8508V9.33177C61.8508 8.6427 61.6724 8.10744 61.3156 7.726C60.9587 7.34455 60.4789 7.15383 59.8759 7.15383C59.273 7.15383 58.7931 7.34455 58.4363 7.726C58.0794 8.10744 57.901 8.6427 57.901 9.33177V14.9243H54.7449V4.62521H57.901V5.99103C58.2209 5.53576 58.6516 5.17892 59.193 4.92052C59.7344 4.64982 60.3435 4.51447 61.0203 4.51447Z"
+            fill="black"
+          />
+          <path
+            d="M53.8181 9.60862C53.8181 9.90393 53.7996 10.2116 53.7627 10.5315H46.6198C46.6691 11.1713 46.8721 11.6635 47.2289 12.008C47.5981 12.3403 48.0472 12.5064 48.5763 12.5064C49.3638 12.5064 49.9114 12.1742 50.219 11.5097H53.5782C53.4059 12.1865 53.0921 12.7955 52.6368 13.3369C52.1939 13.8784 51.634 14.3029 50.9572 14.6105C50.2805 14.9181 49.5238 15.0719 48.687 15.0719C47.678 15.0719 46.7798 14.8566 45.9923 14.4259C45.2048 13.9953 44.5896 13.38 44.1466 12.5802C43.7036 11.7804 43.4821 10.8452 43.4821 9.77473C43.4821 8.70422 43.6975 7.76906 44.1281 6.96926C44.5711 6.16945 45.1863 5.55421 45.9738 5.12355C46.7613 4.69288 47.6657 4.47755 48.687 4.47755C49.6837 4.47755 50.5697 4.68673 51.3448 5.10509C52.12 5.52345 52.723 6.12023 53.1536 6.89543C53.5966 7.67063 53.8181 8.57502 53.8181 9.60862ZM50.5881 8.77805C50.5881 8.23664 50.4035 7.80598 50.0344 7.48606C49.6653 7.16613 49.2038 7.00617 48.6501 7.00617C48.121 7.00617 47.6719 7.15998 47.3027 7.4676C46.9459 7.77522 46.7244 8.21203 46.6383 8.77805H50.5881Z"
+            fill="black"
+          />
+          <path
+            d="M36.2338 4.47755C36.9598 4.47755 37.5935 4.62521 38.1349 4.92052C38.6886 5.21583 39.1131 5.60343 39.4085 6.08332V4.62521H42.5646V14.9058C42.5646 15.8533 42.3739 16.7084 41.9925 17.4713C41.6233 18.2465 41.0511 18.8618 40.2759 19.317C39.5131 19.7723 38.5594 20 37.4151 20C35.8893 20 34.6527 19.637 33.7052 18.911C32.7578 18.1973 32.2164 17.2252 32.081 15.9948H35.2002C35.2987 16.3885 35.5325 16.6961 35.9016 16.9176C36.2708 17.1514 36.726 17.2683 37.2674 17.2683C37.9196 17.2683 38.4364 17.0776 38.8178 16.6961C39.2116 16.327 39.4085 15.7302 39.4085 14.9058V13.4477C39.1008 13.9276 38.6763 14.3213 38.1349 14.6289C37.5935 14.9243 36.9598 15.0719 36.2338 15.0719C35.3848 15.0719 34.6158 14.8566 33.9267 14.4259C33.2376 13.9829 32.6901 13.3616 32.284 12.5618C31.8903 11.7496 31.6934 10.8145 31.6934 9.75628C31.6934 8.69807 31.8903 7.76906 32.284 6.96926C32.6901 6.16945 33.2376 5.55421 33.9267 5.12355C34.6158 4.69288 35.3848 4.47755 36.2338 4.47755ZM39.4085 9.77473C39.4085 8.98723 39.187 8.36584 38.744 7.91057C38.3133 7.45529 37.7842 7.22766 37.1567 7.22766C36.5292 7.22766 35.9939 7.45529 35.5509 7.91057C35.1203 8.35354 34.9049 8.96877 34.9049 9.75628C34.9049 10.5438 35.1203 11.1713 35.5509 11.6389C35.9939 12.0942 36.5292 12.3218 37.1567 12.3218C37.7842 12.3218 38.3133 12.0942 38.744 11.6389C39.187 11.1836 39.4085 10.5622 39.4085 9.77473Z"
+            fill="black"
+          />
+          <path
+            d="M19.9047 9.75628C19.9047 8.69807 20.1015 7.76906 20.4953 6.96926C20.9013 6.16945 21.4489 5.55421 22.138 5.12355C22.827 4.69288 23.5961 4.47755 24.4451 4.47755C25.1711 4.47755 25.8048 4.62521 26.3462 4.92052C26.8999 5.21583 27.3244 5.60343 27.6197 6.08332V4.62521H30.7759V14.9243H27.6197V13.4661C27.3121 13.946 26.8814 14.3336 26.3277 14.6289C25.7863 14.9243 25.1526 15.0719 24.4266 15.0719C23.5899 15.0719 22.827 14.8566 22.138 14.4259C21.4489 13.9829 20.9013 13.3616 20.4953 12.5618C20.1015 11.7496 19.9047 10.8145 19.9047 9.75628ZM27.6197 9.77473C27.6197 8.98723 27.3982 8.36584 26.9553 7.91057C26.5246 7.45529 25.9955 7.22766 25.368 7.22766C24.7404 7.22766 24.2052 7.45529 23.7622 7.91057C23.3315 8.35354 23.1162 8.96877 23.1162 9.75628C23.1162 10.5438 23.3315 11.1713 23.7622 11.6389C24.2052 12.0942 24.7404 12.3218 25.368 12.3218C25.9955 12.3218 26.5246 12.0942 26.9553 11.6389C27.3982 11.1836 27.6197 10.5622 27.6197 9.77473Z"
+            fill="black"
+          />
+          <path
+            d="M19.6274 6.13869C19.6274 6.88928 19.4551 7.57834 19.1106 8.20588C18.766 8.82112 18.2369 9.31946 17.5233 9.70091C16.8096 10.0824 15.9237 10.2731 14.8654 10.2731H12.909V14.9243H9.75283V1.96739H14.8654C15.899 1.96739 16.7727 2.14581 17.4864 2.50265C18.2 2.85948 18.7353 3.35167 19.0921 3.97921C19.449 4.60675 19.6274 5.32658 19.6274 6.13869ZM14.6255 7.76291C15.2284 7.76291 15.6776 7.62141 15.9729 7.3384C16.2682 7.05539 16.4158 6.65549 16.4158 6.13869C16.4158 5.62189 16.2682 5.22199 15.9729 4.93898C15.6776 4.65597 15.2284 4.51447 14.6255 4.51447H12.909V7.76291H14.6255Z"
+            fill="black"
+          />
+          <path
+            d="M8.01037 11.6574C8.01037 12.2234 7.87502 12.7648 7.60432 13.2816C7.34592 13.7984 6.93371 14.2229 6.36769 14.5551C5.81398 14.8873 5.12492 15.0535 4.3005 15.0535V16.53H3.70987V15.035C2.65167 14.9366 1.79034 14.5797 1.12588 13.9645C0.461427 13.3369 0.0984377 12.5925 0.0369142 11.7312H0.904397C0.978225 12.3218 1.24893 12.8755 1.71651 13.3923C2.19639 13.9091 2.86085 14.2167 3.70987 14.3152V8.63039C2.89776 8.3966 2.24561 8.16897 1.75342 7.94748C1.26123 7.726 0.842873 7.38762 0.498341 6.93234C0.166114 6.47707 0 5.86798 0 5.10509C0 4.48986 0.141504 3.93614 0.424513 3.44395C0.719826 2.95177 1.14434 2.56417 1.69805 2.28116C2.26407 1.98584 2.93468 1.83819 3.70987 1.83819V0.232422H4.3005V1.85665C5.28488 1.95508 6.07238 2.28116 6.66301 2.83487C7.25363 3.38858 7.61662 4.04689 7.75197 4.80978H6.88449C6.77375 4.30528 6.50304 3.83155 6.07238 3.38858C5.64171 2.94561 5.05109 2.67491 4.3005 2.57647V8.02131C5.088 8.2428 5.734 8.47043 6.23849 8.70422C6.74299 8.93801 7.16135 9.29485 7.49357 9.77473C7.83811 10.2423 8.01037 10.8699 8.01037 11.6574ZM0.849026 5.06818C0.849026 5.63419 0.972073 6.09562 1.21817 6.45246C1.47657 6.8093 1.80264 7.0923 2.19639 7.30148C2.60245 7.49836 3.10694 7.68293 3.70987 7.8552V2.53956C2.83624 2.55186 2.14102 2.7795 1.62422 3.22247C1.10742 3.65313 0.849026 4.26837 0.849026 5.06818ZM4.3005 14.3521C5.22335 14.3398 5.93087 14.0814 6.42306 13.5769C6.92756 13.0724 7.1798 12.4449 7.1798 11.6943C7.1798 10.8575 6.92756 10.2362 6.42306 9.8301C5.93087 9.42405 5.22335 9.08567 4.3005 8.81496V14.3521Z"
+            fill="black"
+          />
+        </svg>
+        <div class="footer-menu">
+          <a
+            href="https://www.figma.com/community/plugin/1406204255843371488/bulk-font-replacer"
+            target="_blank"
+            >Bulk Font Replacer</a
+          >
+          <a href="https://github.com/resul-celik/pagenum" target="_blank"
+            >Github</a
+          >
+        </div>
       </div>
     </div>
-  </div>
-  <script>
-    window.onmessage = (e) => {
-      document.querySelector(".frame-count").innerHTML = e.data.pluginMessage
-        ? e.data.pluginMessage
-        : 0;
-    };
+    <script>
+      window.onmessage = (e) => {
+        document.querySelector(".frame-count").innerHTML = e.data.pluginMessage
+          ? e.data.pluginMessage
+          : 0;
+      };
 
-    document.getElementById("numerate").onclick = () => {
-      const pattern = document.getElementById("pattern").value;
-      const startNumber = document.getElementById("start").value;
-      const direction = document.getElementById("direction").checked;
-      const style = document.getElementById("style").checked;
-      parent.postMessage(
-        {
-          pluginMessage: {
-            type: "page-numbers",
-            pattern,
-            startNumber,
-            direction,
-            style,
+      document.getElementById("numerate").onclick = () => {
+        const pattern = document.getElementById("pattern").value;
+        const startNumber = document.getElementById("start").value;
+        const direction = document.getElementById("direction").checked;
+        const style = document.getElementById("style").checked;
+        parent.postMessage(
+          {
+            pluginMessage: {
+              type: "page-numbers",
+              pattern,
+              startNumber,
+              direction,
+              style,
+            },
           },
-        },
-        "*"
-      );
-    };
+          "*"
+        );
+      };
 
-    // copy pattern
+      // copy pattern
 
-    const patterText = document.getElementById("pattern");
-    const copyButton = document.getElementById("copy");
+      const patterText = document.getElementById("pattern");
+      const copyButton = document.getElementById("copy");
 
-    copyButton.addEventListener("click", function () {
-      patterText.select();
-      document.execCommand("copy");
-      copyButton.innerText = "Copied!";
-      const clickTimeout = setTimeout(function () {
-        copyButton.innerText = "Copy";
-      }, 1200);
-    });
-  </script>
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@1&family=Poppins:wght@700&display=swap");
-
-    :root {
-      --primary: #69ddff;
-      --secondary: #000;
-      --primary-font: "Poppins", sans-serif;
-      --secondary-font: "Libre Baskerville", serif;
-    }
-
-    body {
-      padding: 0;
-      margin: 0;
-      display: flex;
-      font-family: var(--primary-font);
-      background-color: var(--primary);
-    }
-
-    a,
-    a:hover {
-      color: var(--secondary);
-      margin: 0;
-      padding: 0;
-      text-decoration: underline;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-        sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-    }
-
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--primary);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: transparent;
-      border-right: 3px solid #00000021;
-    }
-
-    ::selection {
-      color: var(--primary);
-      background: var(--secondary);
-    }
-
-    .wrapper {
-      display: flex;
-      width: 100%;
-      padding: 15px;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 15px;
-      align-self: stretch;
-      box-sizing: border-box;
-    }
-
-    .plugin-body {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      max-height: 100%;
-      align-self: stretch;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 30px;
-    }
-
-    .frame-count {
-      width: auto;
-      height: 16px;
-      display: flex;
-      padding: 0 4px;
-      justify-content: center;
-      align-items: center;
-      border-radius: 32px;
-      background: var(--secondary);
-      font-size: 12px;
-      font-family: var(--primary-font);
-      color: var(--primary);
-    }
-
-    .nothing {
-      color: var(--secondary);
-      font-size: inherit;
-    }
-
-    .footer {
-      width: 100%;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: var(--primary);
-    }
-
-    .input-wrapper {
-      width: 100%;
-      height: auto;
-      align-self: stretch;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .field-name {
-      font-family: var(--primary-font);
-      font-weight: bold;
-      letter-spacing: 0px;
-      font-size: 35px;
-      line-height: 35px;
-    }
-
-    .text-field-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 2px dotted var(--secondary);
-    }
-
-    .input-list {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
-      gap: 14px;
-    }
-
-    .input-list-item {
-      width: 100%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: flex-end;
-    }
-
-    .input-list-item .text-field-wrapper,
-    .input-list-item .adt-stg-btn-wrapper {
-      width: 70%;
-    }
-
-    .input-list-name {
-      width: 100%;
-      font-family: var(--secondary-font);
-      font-size: 22px;
-    }
-
-    .text-input {
-      width: 100%;
-      height: auto;
-      background-color: transparent;
-      padding: 0 0 5px 0;
-      outline: none;
-      border: none;
-      font-family: var(--secondary-font);
-      font-style: italic;
-      font-size: 45px;
-    }
-
-    .start-number {
-      font-size: 26px;
-    }
-
-    .description {
-      font-size: 13px;
-      margin-top: 5px;
-      font-family: var(--secondary-font);
-      font-style: italic;
-      letter-spacing: 0.6px;
-    }
-
-    .adt-stg-btn-wrapper {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .radio-button {
-      position: relative;
-    }
-
-    .radio-button input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      margin: 0;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
-    }
-
-    .button {
-      padding: 0 13px;
-      width: auto;
-      height: 31px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: var(--primary-font);
-      background-color: transparent;
-      border: 1px solid var(--secondary);
-      outline: none;
-      font-size: 14px;
-      font-weight: 600;
-      box-shadow: 0px 3px 0px var(--secondary);
-      font-weight: bold;
-    }
-
-    .button:hover {
-      box-shadow: 0px 1px 0px var(--secondary);
-      cursor: pointer;
-      margin-bottom: -2px;
-      margin-top: 2px;
-    }
-
-    .button-paginate {
-      width: 100%;
-      border-radius: 5px;
-      font-size: 16px;
-      padding: 0 15px;
-      height: 40px;
-      gap: 5px;
-    }
-
-    .button-arrow {
-      width: 31px;
-      height: 31px;
-      padding: 0;
-      border-radius: 50%;
-    }
-
-    .button-text {
-      border-radius: 35px;
-    }
-
-    .icon {
-      fill: var(--secondary);
-    }
-
-    .icon path {
-      width: 18px;
-      height: 24px;
-    }
-
-    .arrow-up path {
-      d: path(
-        "M14.7383 7.9774C11.6876 6.32974 9.42205 3.79586 7.99998 0.666748C6.58207 3.78286 4.3163 6.3276 1.2617 7.9774L1.77388 8.92569C4.49129 8.30251 6.2653 7.26468 7.30362 6.1947V15.3334H8.87719V6.37356C9.93572 7.37928 11.6604 8.3373 14.2261 8.92569L14.7383 7.9774Z"
-      );
-    }
-
-    .arrow-down path {
-      d: path(
-        "M1.26169 8.0226C4.31233 9.67026 6.57791 12.2041 7.99997 15.3333C9.41788 12.2171 11.6837 9.6724 14.7383 8.0226L14.2261 7.07431C11.5087 7.69749 9.73466 8.73532 8.69634 9.8053L8.69634 0.666585L7.12277 0.666585L7.12277 9.62644C6.06424 8.62072 4.33956 7.6627 1.77387 7.07431L1.26169 8.0226Z"
-      );
-    }
-
-    .radio-button input:checked ~ .button-active {
-      background: var(--secondary);
-      box-shadow: 0px 0 0px var(--secondary);
-      margin-bottom: -3px;
-      margin-top: 3px;
-    }
-
-    .radio-button input:hover ~ .button-active {
-      box-shadow: 0px 0 0px var(--secondary);
-      margin-bottom: -3px;
-      margin-top: 3px;
-    }
-
-    .radio-button input:checked ~ .button-active .icon {
-      fill: var(--primary);
-    }
-
-    .radio-button input:checked ~ .button-active {
-      color: var(--primary);
-      fill: var(--primary);
-    }
-  </style>
-</body>
+      copyButton.addEventListener("click", function () {
+        patterText.select();
+        document.execCommand("copy");
+        copyButton.innerText = "Copied!";
+        const clickTimeout = setTimeout(function () {
+          copyButton.innerText = "Copy";
+        }, 1200);
+      });
+    </script>
+  </body>
+</html>

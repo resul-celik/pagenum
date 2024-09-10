@@ -1,28 +1,29 @@
-figma.showUI(__html__, { visible: true, width: 400, height: 700 });
+// Set up UI
+figma.showUI(__html__, { visible: true, width: 400, height: 550 });
 
+// Handle selection change event
 figma.on("selectionchange", () => {
-  var selectedFrames = "";
-  var frameCount = 0;
-  for (const selections of figma.currentPage.selection) {
-    if (selections.type == "FRAME" || selections.type == "SECTION") {
-      frameCount++;
-      selectedFrames = `${frameCount}`;
-    }
-  }
-  figma.ui.postMessage(selectedFrames, { origin: "*" });
+  const frameCount = figma.currentPage.selection.filter(
+    (node) =>
+      node.type === "FRAME" ||
+      node.type === "SECTION" ||
+      node.type === "INSTANCE"
+  ).length;
+
+  figma.ui.postMessage(`${frameCount}`, { origin: "*" });
 });
 
-figma.ui.onmessage = (msg) => {
-  if (msg.type === "page-numbers") {
-    pageNums(msg);
+// Listen for messages from UI
+figma.ui.onmessage = (message) => {
+  if (message.type === "page-numbers") {
+    paginateFrames(message);
   }
 };
 
-/* Functions (Start) */
-// To roman
+/* Functions */
 
-const toRoman = (num: any) => {
-  let result = "";
+// Convert number to Roman numeral
+const toRoman = (num: number): string => {
   const romanNumerals = [
     { letter: "M", value: 1000 },
     { letter: "CM", value: 900 },
@@ -38,91 +39,84 @@ const toRoman = (num: any) => {
     { letter: "IV", value: 4 },
     { letter: "I", value: 1 },
   ];
-  for (let i = 0; i < romanNumerals.length; i++) {
-    const numeral = romanNumerals[i];
-    const value = numeral.value;
-    while (num >= value) {
+
+  let result = "";
+  for (const numeral of romanNumerals) {
+    while (num >= numeral.value) {
       result += numeral.letter;
-      num -= value;
+      num -= numeral.value;
     }
   }
   return result;
 };
 
-/* Functions (End) */
-const pageNums = async (msg: any) => {
-  var startNumber = 1;
-  var detectedPatterns = 0;
-  var pattern = "$p";
-  var frames = false;
-  var selectionIndex = [];
+// Paginate frames
+const paginateFrames = async (message: any) => {
+  let {
+    startNumber = 1,
+    pattern = "$p",
+    direction = true,
+    style = true,
+  } = message;
 
-  if (msg.startNumber) {
-    startNumber = msg.startNumber;
+  startNumber = Number(startNumber);
+
+  let progress = 0;
+  let notification = figma.notify("Paginating layers, please wait...");
+
+  const selectedFrames = figma.currentPage.selection
+    .filter(
+      (node) =>
+        node.type === "FRAME" ||
+        node.type === "SECTION" ||
+        node.type === "INSTANCE"
+    )
+    .map((frame) => ({
+      index: figma.currentPage.children.indexOf(frame),
+      id: frame.id,
+    }))
+    .sort((a, b) => (direction ? a.index - b.index : b.index - a.index));
+
+  // Adjust starting number for reverse direction
+  if (!direction) {
+    startNumber = selectedFrames.length + 1 - startNumber;
   }
 
-  if (msg.pattern) {
-    pattern = msg.pattern;
-  }
+  for (const frameIndex of selectedFrames) {
+    const frameNode = figma.getNodeById(frameIndex.id) as FrameNode;
+    const matchingTextNodes = frameNode
+      ?.findAll((node) => node.type === "TEXT")
+      .filter((node: any) => node.characters === pattern) as TextNode[];
 
-  for (const selections of figma.currentPage.selection) {
-    if (selections.type == "FRAME" || selections.type == "SECTION") {
-      selectionIndex.push({
-        index: figma.currentPage.children.indexOf(selections),
-        id: selections.id,
-      });
-
-      selectionIndex.sort(function (a, b) {
-        return b.index - a.index;
-      });
-    }
-  }
-
-  if (!msg.direction) {
-    startNumber = selectionIndex.length + 1 - startNumber;
-  }
-
-  for (const frameIndex of selectionIndex) {
-    var frameNode: any = figma.getNodeById(frameIndex.id);
-    var textObjects = frameNode
-      ?.findAll((frameNode: { type: string }) => frameNode.type === "TEXT")
-      .filter(
-        (frameNode: { characters: string }) => frameNode.characters === pattern
-      );
-
-    textObjects.forEach(function (text: any) {
-      var newText = startNumber.toString();
-
-      if (!msg.style) {
-        var newText = toRoman(startNumber);
-      }
-
-      detectedPatterns++;
-
-      figma.loadFontAsync(text.fontName).then(() => {
-        text.characters = newText;
-      });
-
-      if (textObjects.length != 0) {
-        if (msg.direction) {
-          startNumber++;
-        } else {
-          startNumber--;
+    if (matchingTextNodes) {
+      for (const textNode of matchingTextNodes) {
+        if (progress % 5 === 0) {
+          notification.cancel();
+          notification = figma.notify(
+            `Paginating layers [${progress}/${selectedFrames.length}]`,
+            {
+              timeout: 60000,
+            }
+          );
         }
+        const newText = style ? String(startNumber) : toRoman(startNumber); // Corrected number format
+        await figma.loadFontAsync(textNode.fontName as FontName);
+        textNode.characters = newText;
+        startNumber += direction ? 1 : -1; // Properly increment or decrement
+        progress++;
       }
-    });
-
-    frames = true;
+    }
   }
 
-  // Feedbacks
-  if (frames) {
-    if (detectedPatterns == 0) {
-      figma.notify(`There is no pattern to be matched.`);
-    } else {
-      figma.notify(`Pages were successfully paginated.`);
-    }
+  // User feedback
+  notification.cancel();
+  if (progress > 0) {
+    figma.notify("Success! Page numbers have been applied.", {
+      timeout: 4000,
+    });
   } else {
-    figma.notify(`Please select at least one frame first. `);
+    figma.notify("No matching patterns found in the selected frames.", {
+      timeout: 4000,
+    });
   }
 };

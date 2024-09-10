@@ -5,7 +5,9 @@
   "main": "code.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "watch": "npm run build -- --watch"
+    "watch": "npm run build -- --watch",
+    "git": "git add . && git commit -m",
+    "postgit": "git push --all"
   },
   "author": "",
   "license": "",
