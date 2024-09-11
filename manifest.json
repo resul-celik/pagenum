@@ -3,6 +3,7 @@
   "id": "1175115698559984660",
   "api": "1.0.0",
   "main": "code.js",
+  "documentAccess": "dynamic-page",
   "capabilities": [],
   "enableProposedApi": false,
   "editorType": ["figma"],
