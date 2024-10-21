@@ -1,6 +1,7 @@
 // Set up UI
 figma.showUI(__html__, { visible: true, width: 400, height: 550 });
 
+
 // Handle selection change event
 figma.on("selectionchange", () => {
   const frameCount = figma.currentPage.selection.filter(
@@ -37,7 +38,7 @@ const toRoman = (num: number): string => {
     { letter: "IX", value: 9 },
     { letter: "V", value: 5 },
     { letter: "IV", value: 4 },
-    { letter: "I", value: 1 },
+    { letter: "I", value: 1 }
   ];
 
   let result = "";
@@ -59,10 +60,13 @@ const paginateFrames = async (message: any) => {
     style = true,
   } = message;
 
+
   startNumber = Number(startNumber);
 
   let progress = 0;
   let notification = figma.notify("Paginating layers, please wait...");
+
+  // sort frames
 
   const selectedFrames = figma.currentPage.selection
     .filter(
@@ -77,32 +81,36 @@ const paginateFrames = async (message: any) => {
     }))
     .sort((a, b) => (direction ? a.index - b.index : b.index - a.index));
 
-  // Adjust starting number for reverse direction
-  if (!direction) {
-    startNumber = selectedFrames.length + 1 - startNumber;
-  }
+  // Load text layers
+
+  let textLayers = [] as any
 
   for (const frameIndex of selectedFrames) {
-    const frameNode = figma.getNodeById(frameIndex.id) as FrameNode;
-    const matchingTextNodes = frameNode
-      ?.findAll((node) => node.type === "TEXT")
-      .filter((node: any) => node.characters === pattern) as TextNode[];
+    const frameNode = await figma.getNodeByIdAsync(frameIndex.id) as FrameNode;
+    const matchingTextNodes = frameNode.findAll((node:any) => node.type === "TEXT").filter((node: any) => node.characters === pattern) as TextNode[];
+    
+    if (matchingTextNodes.length !== 0) textLayers.push(matchingTextNodes)
+  }
 
-    if (matchingTextNodes) {
-      for (const textNode of matchingTextNodes) {
+  // paginate
+  
+  for (const textNode of textLayers) {
+
+    if (textNode) {
+      for (const textLayer of textNode) {
         if (progress % 5 === 0) {
           notification.cancel();
           notification = figma.notify(
-            `Paginating layers [${progress}/${selectedFrames.length}]`,
+            `Paginating layers [${progress}/${textLayers.length}]`,
             {
               timeout: 60000,
             }
           );
         }
         const newText = style ? String(startNumber) : toRoman(startNumber); // Corrected number format
-        await figma.loadFontAsync(textNode.fontName as FontName);
-        textNode.characters = newText;
-        startNumber += direction ? 1 : -1; // Properly increment or decrement
+        await figma.loadFontAsync(textLayer.fontName as FontName);
+        textLayer.characters = newText;
+        startNumber += 1; // Properly increment or decrement
         progress++;
       }
     }
